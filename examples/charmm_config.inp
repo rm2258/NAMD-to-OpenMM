@@ -1,0 +1,74 @@
+* Production run with PME, Constant Pressure and Temperature.
+*
+
+! Begin loading parameter files...
+open read card unit 10 name top_all36_prot.rtf
+read  rtf card unit 10
+
+open read card unit 20 name par_all36_prot.prm
+read para card unit 20 flex
+
+open read card unit 10 name top_all36_carb.rtf
+read  rtf card unit 10 append
+
+open read card unit 20 name par_all36_carb.prm
+read para card unit 20 append flex
+
+open read card unit 10 name top_all36_na.rtf
+read  rtf card unit 10 append
+
+open read card unit 20 name par_all36_na.prm
+read para card unit 20 append flex
+
+open read card unit 10 name top_all36_lipid.rtf
+read  rtf card unit 10 append
+
+open read card unit 20 name par_all36_lipid.prm
+read para card unit 20 append flex
+
+open read card unit 10 name top_all36_cgenff.rtf ! cgenff must be loaded last
+read  rtf card unit 10 append
+
+open read card unit 20 name par_all36_cgenff.prm
+read para card unit 20 append flex
+
+stream toppar_water_ions.str
+! loading parameter files...finished!
+
+! Begin loading psf file...
+open read unit 10 card name example.psf
+read psf  unit 10 card
+! Begin loading psf file...finished!
+
+! Begin loading coordinate file...
+read namd file "example.restart.coor"
+! Begin loading coordinate file...finished!
+
+! Image setup...
+CRYSTAL DEFINE ORTH 90.3397026816 91.3840923081 83.3302382086 90.0 90.0 90.0
+CRYSTAL BUILD CUTOFF 14.0 NOPERATIONS 0
+
+! Image centering fixed
+IMAGE BYRESID XCEN -0.20343787968158722 YCEN 0.21902330219745636 ZCEN 1.889962911605835 sele resname TIP3 .or. segid MEMB end
+IMAGE BYRESID XCEN -0.20343787968158722 YCEN 0.21902330219745636 ZCEN 1.889962911605835 sele resname POT .or. resname CLA end
+! Image setup...finished!
+
+! Nonbonded Options
+
+nbonds atom vatom vswitch bycb -
+       ctonnb 10.0 ctofnb 12.0 cutnb 16.0 cutim 16.0 -
+       inbfrq -1 imgfrq -1 wmin 1.0 cdie eps 1.0 -
+       ewald pmew fftx 96 ffty 96 fftz 90  kappa .34 spline order 6
+
+! Get energy
+energy
+
+! Write pdb...
+!write coor card name step4_pro_09.3.crd
+!* Continue from here
+!*
+! Write pdb...finished!
+
+stop
+
+
