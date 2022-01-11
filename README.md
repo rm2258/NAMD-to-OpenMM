@@ -1,185 +1,210 @@
 # Contents:
 
-1.      Summary
-2.      Documentation
- 2.1.     NamdToOpenmmTools
-  2.1.1.    Attributes
-  2.1.2.    Methods
-  2.1.3.    Constraints
-  2.1.4.    Hard-coded parameters
- 2.2.     NamdEnergyExtractor
-  2.2.1.    Attributes
-  2.2.2.    Methods
-3.      Common Errors
-4.      Examples
-5.      Useful links
+## 1.      Summary
+## 2.      Documentation
+### 2.1.     NamdToOpenmmTools
+####  2.1.1.    Attributes
+####  2.1.2.    Methods
+####  2.1.3.    Constraints
+####  2.1.4.    Hard-coded parameters
+### 2.2.     NamdEnergyExtractor
+####  2.2.1.    Attributes
+####  2.2.2.    Methods
+## 3.      Common Errors
+## 4.      Examples
+## 5.      Useful links
 
 
-1.      Summary
- An all-in-one repository to get you up in running with NAMD, CHARMM, or OpenMM MD simulations.
+## 1.      Summary
+An all-in-one repository to get you up in running with **NAMD**, **CHARMM**, or **OpenMM** MD simulations.
 Including useful functionalities for swapping between MD packages consisting of simulation
-configuration files, and functionalities for calculating 'NAMD'-like potential energies in
-OpenMM from DCD trajectory files and extracting energies from NAMD output files. Future
-features includes functionalities for computing 'NAMD'-like energies in NAMD and CHARMM if
+configuration files, and functionalities for calculating '**NAMD**'-like potential energies in
+**OpenMM** from DCD trajectory files and extracting energies from **NAMD** output files. Future
+features includes functionalities for computing '**NAMD**'-like energies in **NAMD** and **CHARMM** if
 possible.
 
 
-2.      Documentation
- 2.1.    NamdToOpenmmTools
-  class namdtoopenmm.NamdToOpenmmTools(trajectory_file, psf_file, parameter_files, temperature, pbc)
-    This module is for computing 'NAMD'-like energies in OpenMM
+## 2.      Documentation
+### 2.1.    `NamdToOpenmmTools`
+`class namdtoopenmm.NamdToOpenmmTools(trajectory_file, psf_file, parameter_files, temperature, pbc)`
 
-    __init__(self, trajectory_file, psf_file, parameter_files, temperature, pbc)
-      Parameters: trajectory_file (str) - File name of DCD trajectory file
-                  psf_file (str) - File name of PSF file
-                  parameter_files (list) - list of parameter files to load
-                  temperature (float) - simulation temperature in kelvin
-                  pbc (tuple) - a, b, c for periodic boundary conditions in angstroms
+This module is for computing '**NAMD**'-like energies in **OpenMM**
 
+`__init__(self, trajectory_file, psf_file, parameter_files, temperature, pbc)`
 
-  2.1.1.    Attributes
-   trajectory_file
-     Trajectory file to load
-
-   psf_file
-     Protein Structure File (psf) to load
-
-   parameter_files
-     A list of parameter files to load
-
-   temperature
-     The simulation temperature in kelvin
-
-   pbc
-     a, b, c for periodic boundary conditions in angstroms
-
-   time_conversions
-     Time conversion constants
-
-   trajectory
-     Loaded trajectory file as an mdtraj.Trajectory object
-
-   system
-     An OpenMM system object
-
-   simulation
-     An OpenMM simulation object
+**Parameters**: 
+- **trajectory_file** (str) - DCD trajectory file name
+- **psf_file** (str) - Protein Structure File (PSF) file name
+- **parameter_files** (list) - list of parameter files to load
+- **temperature** (float) - simulation temperature in kelvin
+- **pbc** (tuple) - a, b, c for periodic boundary conditions in angstroms
 
 
-  2.1.2.    Methods
-   help()
-     Print a help message
-    
-     Returns: A help message
+####  2.1.1.    Attributes
+- **trajectory_file**: 
+Trajectory file to load
 
-   load_trajectory(self)
-     Load a trajectory file
+- **psf_file**:
+Protein Structure File (psf) to load
 
-     Returns: An mdtraj.Trajectory object
+- **parameter_files**:
+A list of parameter files to load
 
-   load_system(self, parameter_files, temperature, pbc)
-     Makes an OpenMM simulation object
+- **temperature**:
+The simulation temperature in kelvin
 
-     Parameters: parameter_files (list) - list of parameter files to load
-                 temperature (float) - simulation temperature in kelvin
-                 pbc (tuple) - a, b, c for periodic boundary conditions in angstroms
-     Returns: system, simulation
-              system - An OpenMM system object
-              simulation - An OpenMM simulation object
-   
-   compute_energies(self, dcdfreq, time='femtoseconds', print_output=False)
-     Computes 'NAMD'-like potential energies in OpenMM
+- **pbc**:
+a, b, c for periodic boundary conditions in angstroms
 
-     Parameters: dcdfreq (int) - DCD frequency output
-                 time (str) - Desired unit of time
-                 print_output (bool) - Print energy breakdown output
-     Returns: potential_energies, output
-              potential_energies (numpy array) - Potential energies
-              output (list) - List of strings of energy breakdown output
+- **time_conversions**:
+Time conversion constants
+
+- **trajectory**:
+Loaded trajectory file as an mdtraj.Trajectory object
+
+- **system**:
+An **OpenMM** system object
+
+- **simulation**:
+An **OpenMM** simulation object
 
 
-  2.1.3.    Constraints
-   Keep in mind that the module was designed to use Protein Structure File (psf)
-  and the CHARMM force field. Therefore, the library at its current state will
-  only work for 'CHARMM'-like files.
-  
-   If a GPU is available in the system then it is used for the calculations.
-  
-   Additionally, at its current state the library is designed to compute
-  energies from NPT simulations.
-  
-  
-  2.1.4.    Hard-coded parameters
-   The following parameters are hard-coded to emulate common NAMD and CHARMM
-  force field parameters. 
-    - Bonds involving hydrogens are constrained
-    - Timestep is hard coded to 2 fs
-    - Pressure is hard coded to 1 atm
-    - Long-range electrostatics are computed with PME
-    - Nonbonded cutoff is set to 12 angstroms
-    - vdw are smoothly switched off with a potential-based switching function
-      set to 10 angstroms.
+####  2.1.2.    Methods
+`help()`
 
- 2.2.    NamdEnergyExtractor
-  class namdextractor.NamdEnergyExtractor(namd_output_file)
-    This module is for extracting energy data from NAMD output files
+Print a help message
 
-    __init__(self, namd_output_file)
-      Parameters: namd_output_file (str) - Name of NAMD log file
-  
+**Returns**:
+- A help message
 
-  2.2.1.    Attributes
-   namd_output_file
-     NAMD log file
+`load_trajectory(self)`
 
-   data_from_file
-     Dictionary where keys are the ETITLE headers and values are the list energies
+Load a trajectory file
 
-   keys
-     List of ETITLE headers
+**Returns**: 
+- An mdtraj.Trajectory object
 
+`load_system(self, parameter_files, temperature, pbc)`
 
-  2.2.2.    Methods
-   help()
-     Print a help message
+Makes an **OpenMM** simulation object
 
-     Returns: A help message
+**Parameters**: 
+- **parameter_files** (list) - list of parameter files to load
+- **temperature** (float) - simulation temperature in kelvin
+- **pbc** (tuple) - a, b, c for periodic boundary conditions in angstroms
+**Returns**: 
+- **system**, **simulation**
+- **system** - An **OpenMM** system object
+- **simulation** - An **OpenMM** simulation object
 
-   etitle(self)
-     Get ETITLE from NAMD log file
+`compute_energies(self, dcdfreq, time='femtoseconds', print_output=False)`
 
-     Returns: A dictionary where keys are the ETITLE entries and values are
-              empty lists
+Computes '**NAMD**'-like potential energies in **OpenMM**
 
-   energy_extractor(self)
-     Extract energies from NAMD log file
-     
-     Returns: A numpy array containing potential energies from the NAMD log file
+**Parameters**: 
+- **dcdfreq** (int) - DCD frequency output
+- **time** (str) - Desired unit of time
+- **print_output** (bool) - Print energy breakdown output
+**Returns**: 
+- **potential_energies**, **output**
+- **potential_energies** (numpy array) - Potential energies
+- **output** (list) - List of strings of energy breakdown output
 
 
-3.      Common Errors
- ModuleNotFoundError occurs when python library is not in the immediate working
+####  2.1.3.    Constraints
+Keep in mind that the module was designed to use Protein Structure File (psf)
+and the **CHARMM** force field. Therefore, the library at its current state will
+only work for '**CHARMM**'-like files.
+
+If a GPU is available in the system then it is used for the calculations.
+
+Additionally, at its current state the library is designed to compute
+energies from NPT simulations.
+
+
+####  2.1.4.    Hard-coded parameters
+The following parameters are hard-coded to emulate common **NAMD** and **CHARMM**
+force field parameters. 
+- Bonds involving hydrogens are constrained
+- Timestep is hard coded to 2 fs
+- Pressure is hard coded to 1 atm
+- Long-range electrostatics are computed with PME
+- Nonbonded cutoff is set to 12 angstroms
+- vdw are smoothly switched off with a potential-based switching function
+  set to 10 angstroms.
+
+### 2.2.    `NamdEnergyExtractor`
+`class namdextractor.NamdEnergyExtractor(namd_output_file)`
+
+This module is for extracting energy data from **NAMD** output files
+
+`__init__(self, namd_output_file)`
+
+**Parameters**: 
+- **namd_output_file** (str) - Name of **NAMD** log file
+
+
+####  2.2.1.    Attributes
+- **namd_output_file**:
+**NAMD** log file
+
+- **data_from_file**:
+Dictionary where keys are the ETITLE headers and values are the list energies
+
+- **keys**:
+List of ETITLE headers
+
+
+####  2.2.2.    Methods
+`help()`
+
+Print a help message
+
+**Returns**: 
+- A help message
+
+`etitle(self)`
+
+Get ETITLE from **NAMD** log file
+
+**Returns**: 
+- A dictionary where keys are the ETITLE entries and values are
+  empty lists
+
+`energy_extractor(self)`
+
+Extract energies from **NAMD** log file
+
+**Returns**: 
+- A numpy array containing potential energies from the **NAMD** log file
+
+
+## 3.      Common Errors
+**ModuleNotFoundError** occurs when python library is not in the immediate working
 directory. Fixes include copying the modules into your working directory,
 defining the full path to the modules, or adding the full path to the
-modules to your PATH environment variables.
+modules to your **PATH** environment variables.
 
 
-4.      Examples
+## 4.      Examples
 
- Examples are located in examples/ directory which includes NamdToOpenmmTools and
-NamdEnergyExtractor examples, and example simulation configuration files.
+Examples are located in **examples/** directory which includes **NamdToOpenmmTools** and
+**NamdEnergyExtractor** examples, and example simulation configuration files.
 
 
-5.      Useful links
+## 5.      Useful links
 
-VMD/NAMD: - VMD Download (https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD)
-          - NAMD Download (https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD)
-          - VMD/NAMD Tutorials (https://www.ks.uiuc.edu/Training/Tutorials/)
-          - NAMD User's Guide (https://www.ks.uiuc.edu/Research/namd/2.14/ug/)
-          - NAMD fourms (http://www.ks.uiuc.edu/Research/namd/mailing_list/)
+**VMD/NAMD**: 
+- [**VMD** Download](https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD)
+- [**NAMD** Download](https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD)
+- [**VMD/NAMD** Tutorials](https://www.ks.uiuc.edu/Training/Tutorials/)
+- [**NAMD** User's Guide](https://www.ks.uiuc.edu/Research/namd/2.14/ug/)
+- [**NAMD** fourms](http://www.ks.uiuc.edu/Research/namd/mailing_list/)
 
-CHARMM: - CHARMM Download (https://academiccharmm.org/program)
-        - CHARMM Documentation (https://academiccharmm.org/documentation)
+**CHARMM**: 
+- [**CHARMM** Download](https://academiccharmm.org/program)
+- [**CHARMM** Documentation](https://academiccharmm.org/documentation)
 
-OpenMM: - OpenMM User's Guide (http://docs.openmm.org/latest/userguide/)
-        - OpenMM Documentation (http://docs.openmm.org/latest/api-python/)
+**OpenMM**: 
+- [**OpenMM** User's Guide](http://docs.openmm.org/latest/userguide/)
+- [**OpenMM** Documentation](http://docs.openmm.org/latest/api-python/)
