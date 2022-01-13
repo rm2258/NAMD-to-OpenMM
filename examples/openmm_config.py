@@ -2,7 +2,7 @@
 JOB DESCRIPTION
 
 Production run with PME, Constant Pressure and Temperature.
-Demonstrates how to perform MD in OpenMM
+Demonstrates how to perform MD in OpenMM.
 
 """
 
