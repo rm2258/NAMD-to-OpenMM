@@ -199,7 +199,7 @@ Examples are located in **examples/** directory which includes **NamdToOpenmmToo
 - [**NAMD** Download](https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD)
 - [**VMD/NAMD** Tutorials](https://www.ks.uiuc.edu/Training/Tutorials/)
 - [**NAMD** User's Guide](https://www.ks.uiuc.edu/Research/namd/2.14/ug/)
-- [**NAMD** fourms](http://www.ks.uiuc.edu/Research/namd/mailing_list/)
+- [**NAMD** forums](http://www.ks.uiuc.edu/Research/namd/mailing_list/)
 
 **CHARMM**: 
 - [**CHARMM** Download](https://academiccharmm.org/program)
