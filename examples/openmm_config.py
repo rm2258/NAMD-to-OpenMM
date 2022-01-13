@@ -39,7 +39,7 @@ params = CharmmParameterSet('par_all36_prot.prm', 'top_all36_prot.rtf',
 			    'par_all36_na.prm', 'top_all36_na.rtf',
 			    'toppar_water_ions_namd.str')                                          # Parameter files
 
-psf.setBox(90.3397026816*angstroms, 91.3840923081*angstroms, 83.3302382086*angstroms)              # Box dimensions for PBC if either
+psf.setBox(90.3397026816*angstroms, 91.3840923081*angstroms, 83.3302382086*angstroms)              # Box dimensions for PBC
 
 # Build openmm system
 system = psf.createSystem(params, nonbondedMethod=PME, 
