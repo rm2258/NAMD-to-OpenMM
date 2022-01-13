@@ -1,7 +1,7 @@
 #############################################################
 ##                                                         ##
 ## This module is for computing potential energies from    ##
-## trajectory files in NAMD                                ##
+## trajectory files in NAMD.                               ##
 ## Made by Ramon Mendoza, ramendoza@uchicago.edu           ##
 ## Last update January 12, 2022                            ##
 ##                                                         ##

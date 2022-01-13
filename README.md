@@ -10,6 +10,8 @@
 ### 2.2.     NamdEnergyExtractor
 ####  2.2.1.    Attributes
 ####  2.2.2.    Methods
+### 2.3 namdenergycomputer.tcl
+#### 2.3.1 Parameters
 ## 3.      Common Errors
 ## 4.      Examples
 ## 5.      Useful links
@@ -19,9 +21,7 @@
 An all-in-one repository to get you up in running with **NAMD**, **CHARMM**, or **OpenMM** MD simulations.
 Including useful functionalities for swapping between MD packages consisting of simulation
 configuration files, and functionalities for calculating '**NAMD**'-like potential energies in
-**OpenMM** from DCD trajectory files and extracting energies from **NAMD** output files. Future
-features includes functionalities for computing '**NAMD**'-like energies in **NAMD** and **CHARMM** if
-possible.
+**NAMD** or **OpenMM** from DCD trajectory files and extracting energies from **NAMD** output files. 
 
 
 ## 2.      Documentation
@@ -178,6 +178,22 @@ Extract energies from **NAMD** log file
 **Returns**: 
 - A numpy array containing potential energies from the **NAMD** log file
 
+### 2.3 namdenergycomputer.tcl
+This module is for computing potential energies from 
+trajectory files in **NAMD**.
+
+#### 2.3.1 Parameters
+- **ts** (int) - The number steps between each trajectory frame, and is eqiuvalent to **NAMD**'s dcdfreq.
+
+- **energy_precision** (int) - The number of digits to appear to the right of the decimal point in the dedicated output file if it is written.
+
+- **trajectory_file** (str) - The file name of the trajectory file
+
+- **print_output** (bool) - Should a dedicated output file be written.
+
+- **output_file** (str) - The file name for the energy output
+
+
 
 ## 3.      Common Errors
 **ModuleNotFoundError** occurs when python library is not in the immediate working
@@ -188,8 +204,8 @@ modules to your **PATH** environment variables.
 
 ## 4.      Examples
 
-Examples are located in **examples/** directory which includes **NamdToOpenmmTools** and
-**NamdEnergyExtractor** examples, and example simulation configuration files.
+Examples are located in **examples/** directory which includes **NamdToOpenmmTools**,
+**NamdEnergyExtractor**, **namdenergycomputer.tcl** examples, and example simulation configuration files.
 
 
 ## 5.      Useful links
