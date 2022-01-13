@@ -1,5 +1,5 @@
 * Production run with PME, Constant Pressure and Temperature.
-* Also demonstrates how to compute energies in CHARMM.
+* Demonstrates how to compute energies in CHARMM.
 *
 
 ! Begin loading parameter files...
