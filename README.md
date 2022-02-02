@@ -12,6 +12,9 @@
 ####  2.2.2.    Methods
 ### 2.3 namdenergycomputer.tcl
 #### 2.3.1 Parameters
+### 2.4 TrajSlicer
+#### 2.4.1 Attributes
+#### 2.4.2 Methods
 ## 3.      Common Errors
 ## 4.      Examples
 ## 5.      Useful links
@@ -79,7 +82,7 @@ Print a help message
 
 `load_trajectory(self)`
 
-Load a trajectory file
+Load a trajectory file; invoked upon initializaion
 
 **Returns**: 
 - An mdtraj.Trajectory object
@@ -92,6 +95,7 @@ Makes an **OpenMM** simulation object
 - **parameter_files** (list) - list of parameter files to load
 - **temperature** (float) - simulation temperature in kelvin
 - **pbc** (tuple) - a, b, c for periodic boundary conditions in angstroms
+
 **Returns**: 
 - **system**, **simulation**
 - **system** - An **OpenMM** system object
@@ -105,6 +109,7 @@ Computes '**NAMD**'-like potential energies in **OpenMM**
 - **dcdfreq** (int) - DCD frequency output
 - **time** (str) - Desired unit of time
 - **print_output** (bool) - Print energy breakdown output
+
 **Returns**: 
 - **potential_energies**, **output**
 - **potential_energies** (numpy array) - Potential energies
@@ -193,6 +198,58 @@ trajectory files in **NAMD**.
 
 - **output_file** (str) - The file name for the energy output
 
+
+### 2.4 `TrajSlicer`
+`class trajslicer.TrajSlicer(trajectory_file, psf_file, output_file)`
+
+This module is for slicing trajectory files into smaller trajectories
+and outputting it to a new trajectory file.
+
+`__init__(self, trajectory_file, psf_file, output_file)`
+
+**Parameters**:
+- **trajectory_file** (str) - DCD trajectory file name
+- **psf_file** (str) - Protein Structure File (PSF) file name
+- **output_file** (str) - DCD trajectory output file name
+
+#### 2.4.1 Attributes
+- **trajectory_file** - DCD trajectory file name
+- **psf_file** - Protein Structure File (PSF) file name
+- **output_file** - DCD trajectory output file name
+- **trajectory** - An MDAnalysis Universe object
+- **last_frame** - Last frame of the trajectory file
+- **total_atoms** - Total atoms in the trajectory file
+
+#### 2.4.2 Methods
+`help()`
+
+Print a help message
+
+**Returns**:
+
+- A help message
+
+`load_trajectory(self)`
+
+Makes an **MDAnalysis** Universe object; invoked upon initializaion
+
+**Returns**:
+
+- An MDAnalysis.Universe object
+
+`traj_slicer(self, first=0, last=last_frame, stride=1)`
+
+Slices the trajectory file from first to last and writes a new trajectory file
+
+**Parameters**:
+
+- **first** (int) - First frame to begin slicing; inclusive
+- **last** (int) - Last frame to end slicing; inclusive
+- **stride** (int) - Take every n-th frame from first to last
+
+**Returns**:
+
+- A new DCD trajectory file
 
 
 ## 3.      Common Errors
