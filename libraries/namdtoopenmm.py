@@ -2,7 +2,7 @@
 This module is for computing 'NAMD'-like energies in OpenMM
 
 Made by Ramon Mendoza, ramendoza@uchicago.edu
-Last update January 10, 2022
+Last update Februrary 2, 2022
 """
 
 from simtk.openmm.app import *
@@ -97,12 +97,13 @@ class NamdToOpenmmTools:
         for i, f in enumerate(system.getForces()):
             f.setForceGroup(i)
         integrator = LangevinIntegrator(temperature * kelvin, 1 / picosecond, 0.002 * picoseconds)
-        if Platform.getPlatformByName('CUDA') is None:
-            simulation = Simulation(psf.topology, system, integrator)
-        else:
+        try:
             platform = Platform.getPlatformByName('CUDA')
             prop = {'Precision': 'single'}
             simulation = Simulation(psf.topology, system, integrator, platform, prop)
+        except OpenMMException:
+            platform = Platform.getPlatformByName('CPU')
+            simulation = Simulation(psf.topology, system, integrator)
         return system, simulation
 
     def compute_energies(self, dcdfreq, time='femtoseconds', print_output=False):
