@@ -95,7 +95,7 @@ if False:
 				remainingTime=True, speed=True, totalSteps=nstep, separator='\t'))
     simulation.reporters.append(CheckpointReporter(outputName+'.restart.chk', 
                                                    restartfreq, writeState=False)) # Change writeState to True if you want xml format restart files
-                                                                                                              # you should also change the name of the output to .xml in this case
+                                                                                   # you should also change the name of the output to .xml in this case
     simulation.step(nstep)
 
 # Write restart file
