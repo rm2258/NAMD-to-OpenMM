@@ -73,13 +73,6 @@ An **OpenMM** simulation object
 
 
 ####  2.1.2.    Methods
-`help()`
-
-Print a help message
-
-**Returns**:
-- A help message
-
 `load_trajectory(self)`
 
 Load a trajectory file; invoked upon initializaion
@@ -161,13 +154,6 @@ List of ETITLE headers
 
 
 ####  2.2.2.    Methods
-`help()`
-
-Print a help message
-
-**Returns**: 
-- A help message
-
 `etitle(self)`
 
 Get ETITLE from **NAMD** log file
@@ -221,14 +207,6 @@ and outputting it to a new trajectory file.
 - **total_atoms** - Total atoms in the trajectory file
 
 #### 2.4.2 Methods
-`help()`
-
-Print a help message
-
-**Returns**:
-
-- A help message
-
 `load_trajectory(self)`
 
 Makes an **MDAnalysis** Universe object; invoked upon initializaion
