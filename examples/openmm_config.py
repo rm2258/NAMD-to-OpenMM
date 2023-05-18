@@ -73,8 +73,8 @@ print("\nInitial system energy: " + str(simulation.context.getState(getEnergy=Tr
 # Energy minimization
 if False:
     mini_nsteps = 100
-    print("\nEnergy minimization: %s steps" % mini_nstep)
-    simulation.minimizeEnergy(tolerance=100.0*kilojoule/mole, maxIterations=mini_nstep)
+    print("\nEnergy minimization: %s steps" % mini_nsteps)
+    simulation.minimizeEnergy(tolerance=100.0*kilojoule/mole, maxIterations=mini_nsteps)
     print(simulation.context.getState(getEnergy=True).getPotentialEnergy().value_in_unit(kilocalories_per_mole))
 
 # Generate initial velocities
@@ -86,12 +86,16 @@ if False:
 if False:
     nstep = 300000000                          # 500000 steps = 1 ns
     dcdfreq = 5000                             # 5000 steps = every 0.01 ns
+    restartfreq = 5000
     outputEnergies = 5000
     print("\nMD run: %s steps" % nstep)
     simulation.reporters.append(DCDReporter(outputName+'.dcd', dcdfreq))
     simulation.reporters.append(StateDataReporter(sys.stdout, outputEnergies, step=True, time=True,
                                 potentialEnergy=True, temperature=True, progress=True,
 				remainingTime=True, speed=True, totalSteps=nstep, separator='\t'))
+    simulation.reporters.append(CheckpointReporter(outputName+'.restart.chk', 
+                                                   restartfreq, writeState=False)) # Change writeState to True if you want xml format restart files
+                                                                                                              # you should also change the name of the output to .xml in this case
     simulation.step(nstep)
 
 # Write restart file
